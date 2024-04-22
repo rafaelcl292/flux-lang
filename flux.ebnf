@@ -1,0 +1,31 @@
+program = { statement };
+
+statement = expression | function_definition | assignment | if_statement | loop_statement;
+
+expression = term, { ("+" | "-"), term };
+term = factor, { ("*" | "/"), factor };
+factor = number | identifier | "(", expression, ")" | function_call | pipeline;
+
+function_definition = identifier, "->", [parameter_list], [block];
+parameter_list = identifier, {",", identifier};
+block = "{", {statement}, [return_statement], "}";
+return_statement = "return", expression;
+
+assignment = identifier, "=", (expression | block);
+
+if_statement = "if", condition, block, {"else if", condition, block}, ["else", block];
+condition = expression, ("==" | "!=" | "<" | ">" | "<=" | ">="), expression;
+
+loop_statement = for_loop | while_loop;
+for_loop = "for", ([assignment], ";", [condition], ";", [assignment]), block;
+while_loop = "for", [condition], block;
+
+function_call = identifier, argument_list;
+pipeline = expression, "|>", identifier;
+argument_list = [expression, {",", expression}];
+
+number = digit, {digit};
+identifier = (letter | "_"), {letter | "_" | digit};
+
+letter = "a"| "..." | "z" | "A" | "..." | "Z";
+digit = "0" | "..." | "9";
