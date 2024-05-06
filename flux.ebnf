@@ -1,4 +1,4 @@
-program = { statement };
+program = { statement, ";" };
 
 statement = expression | function_definition | assignment | if_statement | loop_statement;
 
