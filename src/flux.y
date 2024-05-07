@@ -9,10 +9,9 @@ extern FILE *yyin;
 %token PLUS MINUS STAR SLASH
 %token EQ NE LT LE GT GE AND OR NOT
 %token LPAREN RPAREN SEMICOLON LBRACE RBRACE
-%token ASSIGN PIPE ARROW COMMA
+%token ASSIGN ARROW COMMA
 %token IDENT NUMBER STRING
 %token IF ELSE FOR RETURN BREAK CONTINUE
-%token INT STR BOOL VOID
 %token TRUE FALSE
 
 %%
@@ -23,11 +22,26 @@ block:
 statement:
     IDENT ASSIGN bool_expression
     | IDENT ASSIGN LBRACE block_with_return RBRACE
-    | IDENT bool_expression
-    | IDENT ARROW IDENT LBRACE block_with_return RBRACE
+    | IDENT ARROW ident_list LBRACE block_with_return RBRACE
+    | IDENT arg_list
     | if_block
     | loop_block
     ;
+
+arg_list:
+    | bool_expression
+    | bool_expression COMMA arg_list_2
+
+arg_list_2: bool_expression
+    | bool_expression COMMA arg_list_2
+
+
+ident_list:
+    | IDENT
+    | IDENT COMMA ident_list_2
+
+ident_list_2: IDENT
+    | IDENT COMMA ident_list_2
 
 
 loop_block:

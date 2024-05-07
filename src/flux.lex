@@ -21,11 +21,6 @@ continue { return CONTINUE; }
 true  { return TRUE; }
 false { return FALSE; }
 
-int   { return INT; }
-str   { return STR; }
-bool  { return BOOL; }
-void  { return VOID; }
-
 "+"  { return PLUS; }
 "-"  { return MINUS; }
 "*"  { return STAR; }
@@ -42,7 +37,6 @@ void  { return VOID; }
 "<=" { return LE; }
 ">"  { return GT; }
 ">=" { return GE; }
-"|>" { return PIPE; }
 "->" { return ARROW; }
 ","  { return COMMA; }
 
