@@ -1,2 +1,1 @@
-local b
-local a = b
+a = b
