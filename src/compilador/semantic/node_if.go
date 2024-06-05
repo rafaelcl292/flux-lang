@@ -10,9 +10,15 @@ func (n If) Eval(st *SymbolTable) symbol {
 	s := n.Cond.Eval(st)
 	expect(INT, s)
 	if s.val.(int) != 0 {
-		n.Then.Eval(st)
+		if_s := n.Then.Eval(st)
+		if if_s.stype != NONE {
+			return if_s
+		}
 	} else {
-		n.Else.Eval(st)
+		else_s := n.Else.Eval(st)
+		if else_s.stype != NONE {
+			return else_s
+		}
 	}
 	return symbol{NONE, nil}
 }

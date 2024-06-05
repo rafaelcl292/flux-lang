@@ -13,7 +13,7 @@ func TestMain(t *testing.T) {
 		"1\n", "30\n", "0\n1000\n", "", "9\n", "120\n0\n",
 		"2\n-1\n", "1\n0\n", "", "10\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n",
 		"bom dia 1 companhia\n", "test is a test\n", "Bom dia!\n",
-		"1\n2\n3\n", "hi\n2\n", "",
+		"1\n2\n3\n", "hi\n2\n", "", "oi\n2\n",
 	}
 
 	for i, expected := range outputs {
