@@ -1,0 +1,5 @@
+t = "test";
+if t == "test" {
+    println t .. " is a test";
+};
+a = 1 == 1;

@@ -1,0 +1,5 @@
+bom_dia -> {
+    println "Bom dia!";
+};
+
+bom_dia();

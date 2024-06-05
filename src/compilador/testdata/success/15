@@ -1,0 +1,6 @@
+sem_bom_dia -> {
+    return;
+    println "Bom dia!";
+};
+
+sem_bom_dia();sem_bom_dia();

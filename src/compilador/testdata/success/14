@@ -1,0 +1,6 @@
+a = {
+    println "hi";
+    return 1;
+};
+
+println a + 1;

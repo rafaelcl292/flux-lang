@@ -12,7 +12,6 @@ extern FILE *yyin;
 %token ASSIGN ARROW COMMA
 %token IDENT NUMBER STRING
 %token IF ELSE FOR RETURN BREAK CONTINUE
-%token TRUE FALSE
 
 %%
 
@@ -107,7 +106,6 @@ term: factor
 factor: NUMBER
     | IDENT
     | STRING
-    | TRUE | FALSE
     | LPAREN bool_expression RPAREN
     | MINUS factor
     | NOT factor

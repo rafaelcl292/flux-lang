@@ -1,6 +1,6 @@
 a = 1;
 
-print a;
+println a;
 bom_dia = "oi";
 
 does_a_bunch_of_stuff -> a, b, c {
@@ -10,7 +10,7 @@ does_a_bunch_of_stuff -> a, b, c {
     return "done";
 };
 
-does_a_bunch_of_stuff 1, 2, 3;
+done = does_a_bunch_of_stuff(1, 2, 3);
 
 
 my_var = 3 + 2;
@@ -28,22 +28,21 @@ my_var = {
 
 if 1 == 1 {
     println "1 is equal to 1";
-} else if 1 == 2 {
+} else { if 1 == 2 {
     println "1 is equal to 2";
 } else {
     println "1 is not equal to 1 or 2";
-};
+};};
 
 inc -> a {
-    a = a + 1;
-    return a;
+    return a + 1;
 };
 
-for i = 0; i < 10; inc i {
+for i = 0; i < 10; i = inc(i) {
     println i;
 };
 
 for ;; {
     println "infinite loop";
-    break;
+    return;
 };

@@ -18,8 +18,9 @@ return { return RETURN; }
 break { return BREAK; }
 continue { return CONTINUE; }
 
-true  { return TRUE; }
-false { return FALSE; }
+and   { return AND; }
+or    { return OR; }
+not   { return NOT; }
 
 "+"  { return PLUS; }
 "-"  { return MINUS; }
