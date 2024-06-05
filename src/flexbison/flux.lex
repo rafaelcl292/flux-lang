@@ -5,22 +5,23 @@
 WS     [ \t\n]
 IDENT  [a-zA-Z_][a-zA-Z0-9_]*
 NUMBER [0-9]+
-STRING \".*\"
+STRING \"[^\"]*\"
+COMMENT "//"[^\n]*\n
 
 %%
 
 {WS}
+{COMMENT}
 
 if    { return IF; }
 else  { return ELSE; }
 for   { return FOR; }
 return { return RETURN; }
-break { return BREAK; }
-continue { return CONTINUE; }
 
 and   { return AND; }
 or    { return OR; }
 not   { return NOT; }
+println { return PRINTLN; }
 
 "+"  { return PLUS; }
 "-"  { return MINUS; }
@@ -33,13 +34,11 @@ not   { return NOT; }
 "}"  { return RBRACE; }
 ";"  { return SEMICOLON; }
 "==" { return EQ; }
-"!=" { return NE; }
 "<"  { return LT; }
-"<=" { return LE; }
 ">"  { return GT; }
-">=" { return GE; }
 "->" { return ARROW; }
 ","  { return COMMA; }
+".." { return CONCAT; }
 
 {IDENT} {
     return IDENT;

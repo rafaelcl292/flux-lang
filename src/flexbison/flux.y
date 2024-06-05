@@ -7,11 +7,11 @@ extern FILE *yyin;
 %}
 
 %token PLUS MINUS STAR SLASH
-%token EQ NE LT LE GT GE AND OR NOT
+%token EQ LT GT AND OR NOT CONCAT
 %token LPAREN RPAREN SEMICOLON LBRACE RBRACE
 %token ASSIGN ARROW COMMA
 %token IDENT NUMBER STRING
-%token IF ELSE FOR RETURN BREAK CONTINUE
+%token IF ELSE FOR RETURN PRINTLN
 
 %%
 
@@ -20,11 +20,14 @@ block:
 
 statement:
     IDENT ASSIGN bool_expression
-    | IDENT ASSIGN LBRACE block_with_return RBRACE
-    | IDENT ARROW ident_list LBRACE block_with_return RBRACE
-    | IDENT arg_list
+    | IDENT ASSIGN LBRACE block RBRACE
+    | IDENT ARROW ident_list LBRACE block RBRACE
+    | IDENT LPAREN arg_list RPAREN
     | if_block
     | loop_block
+    | RETURN bool_expression
+    | RETURN
+    | PRINTLN bool_expression
     ;
 
 arg_list:
@@ -47,18 +50,7 @@ loop_block:
     FOR statement_with_empty SEMICOLON
     bool_expression_with_empty SEMICOLON
     statement_with_empty
-    LBRACE block_with_break_continue RBRACE
-
-block_with_return:
-    | statement SEMICOLON block_with_return
-    | RETURN bool_expression SEMICOLON block_with_return
-    ;
-
-block_with_break_continue:
-    | statement SEMICOLON block_with_break_continue
-    | BREAK SEMICOLON block_with_break_continue
-    | CONTINUE SEMICOLON block_with_break_continue
-    ;
+    LBRACE block RBRACE
 
 if_block:
     IF bool_expression LBRACE block RBRACE else_block;
@@ -86,16 +78,14 @@ bool_term: rel_expression
 
 rel_expression: expression
     | expression EQ expression
-    | expression NE expression
     | expression LT expression
-    | expression LE expression
     | expression GT expression
-    | expression GE expression
     ;
 
 expression: term
     | expression PLUS term
     | expression MINUS term
+    | expression CONCAT term
     ;
 
 term: factor
@@ -105,11 +95,13 @@ term: factor
 
 factor: NUMBER
     | IDENT
+    | IDENT LPAREN arg_list RPAREN
     | STRING
     | LPAREN bool_expression RPAREN
     | MINUS factor
     | NOT factor
     ;
+
 
 %%
 
