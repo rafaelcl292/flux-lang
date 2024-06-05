@@ -230,11 +230,6 @@ func factor(tok *tokenizer.Tokenizer) semantic.Node {
 		node := boolExpression(tok)
 		expect(tok, RPAREN)
 		return node
-	case READ:
-		tok.NextToken()
-		expect(tok, LPAREN)
-		expect(tok, RPAREN)
-		return &semantic.Read{}
 	default:
 		createError("EXPRESSION", tok.Next)
 		return nil

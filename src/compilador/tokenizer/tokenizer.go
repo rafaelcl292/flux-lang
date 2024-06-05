@@ -54,8 +54,6 @@ func (t *Tokenizer) readIdentifier() {
 	switch identifier {
 	case "println":
 		t.Next = Token{Type: PRINT, Literal: "print"}
-	case "read":
-		t.Next = Token{Type: READ, Literal: "read"}
 	case "if":
 		t.Next = Token{Type: IF, Literal: "if"}
 	case "else":

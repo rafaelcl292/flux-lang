@@ -14,7 +14,6 @@ const (
 
 	// Keywords
 	PRINT    TokenType = "PRINT"
-	READ     TokenType = "READ"
 	IF       TokenType = "IF"
 	ELSE     TokenType = "ELSE"
 	FOR      TokenType = "FOR"
