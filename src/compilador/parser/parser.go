@@ -72,6 +72,7 @@ func statement(tok *tokenizer.Tokenizer) semantic.Node {
 			for tok.Next.Type != RBRACE {
 				stmt := statement(tok)
 				stmts = append(stmts, stmt)
+				expect(tok, SEMICOLON)
 			}
 			tok.NextToken()
 			return &semantic.FuncDec{
@@ -87,6 +88,7 @@ func statement(tok *tokenizer.Tokenizer) semantic.Node {
 			for tok.Next.Type != RBRACE {
 				stmt := statement(tok)
 				stmts = append(stmts, stmt)
+				expect(tok, SEMICOLON)
 			}
 			tok.NextToken()
 			return &semantic.Assign{Ident: ident, Expr: semantic.Block{Stmts: stmts}}
@@ -101,6 +103,7 @@ func statement(tok *tokenizer.Tokenizer) semantic.Node {
 		for tok.Next.Type != RBRACE {
 			stmt := statement(tok)
 			then_stmts = append(then_stmts, stmt)
+			expect(tok, SEMICOLON)
 		}
 		else_stmts := make([]semantic.Node, 0)
 		tok.NextToken()
@@ -110,6 +113,7 @@ func statement(tok *tokenizer.Tokenizer) semantic.Node {
 			for tok.Next.Type != RBRACE {
 				stmt := statement(tok)
 				else_stmts = append(else_stmts, stmt)
+				expect(tok, SEMICOLON)
 			}
 			tok.NextToken()
 		}
@@ -145,6 +149,7 @@ func statement(tok *tokenizer.Tokenizer) semantic.Node {
 		for tok.Next.Type != RBRACE {
 			stmt := statement(tok)
 			stmts = append(stmts, stmt)
+			expect(tok, SEMICOLON)
 		}
 		tok.NextToken()
 		return &semantic.For{

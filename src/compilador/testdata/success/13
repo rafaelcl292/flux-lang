@@ -1,7 +1,7 @@
 does_a_bunch_of_stuff -> a, b, c {
-    println a
-    println b
-    println c
+    println a;
+    println b;
+    println c;
 };
 
 does_a_bunch_of_stuff(1, 2, 3);
