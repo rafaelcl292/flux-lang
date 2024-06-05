@@ -1,30 +1,55 @@
 program = { statement, ";" };
 
-statement = expression | function_definition | assignment | if_statement | loop_statement;
+block = statement, ";", block 
+    | statement, ";";
 
-expression = term, { ("+" | "-"), term };
-term = factor, { ("*" | "/"), factor };
-factor = number | identifier | "(", expression, ")" | function_call;
+statement = ident, ASSIGN, bool_expression
+    | ident, ASSIGN, "{", block, "}"
+    | ident, ARROW, ident_list, "{", block, "}"
+    | ident, "(", arg_list, ")"
+    | if_block
+    | loop_block
+    | "return", bool_expression
+    | "return"
+    | "println", bool_expression;
 
-function_definition = identifier, "->", [parameter_list], [block];
-parameter_list = identifier, {",", identifier};
-block = "{", {statement}, [return_statement], "}";
-return_statement = "return", expression;
+arg_list = bool_expression
+    | bool_expression, ",", arg_list_2;
 
-assignment = identifier, "=", (expression | block);
+arg_list_2 = bool_expression
+    | bool_expression, ",", arg_list_2;
 
-if_statement = "if", condition, block, {"else if", condition, block}, ["else", block];
-condition = expression, ("==" | "!=" | "<" | ">" | "<=" | ">="), expression;
+ident_list = ident
+    | ident, ",", ident_list_2;
 
-loop_statement = for_loop | while_loop;
-for_loop = "for", ([assignment], ";", [condition], ";", [assignment]), block;
-while_loop = "for", [condition], block;
+ident_list_2 = ident
+    | ident, ",", ident_list_2;
 
-function_call = identifier, argument_list;
-argument_list = [expression, {",", expression}];
+loop_block = "for", statement_with_empty, ";", bool_expression_with_empty, ";", statement_with_empty, "{", block, "}";
+
+if_block = "if", bool_expression, "{", block, "}", else_block;
+
+else_block = "else", "{", block, "}" | "else", if_block | ;
+
+bool_expression_with_empty = bool_expression | ;
+
+statement_with_empty = statement | ;
+
+bool_expression = bool_term | bool_expression, "or", bool_term;
+
+bool_term = rel_expression | bool_term, "and", rel_expression;
+
+rel_expression = expression | expression, "==", expression | expression, "<", expression | expression, ">", expression;
+
+expression = term | expression, "+", term | expression, "-", term | expression, "..", term;
+
+term = factor | term, "*", factor | term, "/", factor;
+
+factor = number | ident | ident, "(", arg_list, ")" | string | "(", bool_expression, ")" | "-", factor | "not", factor;
 
 number = digit, {digit};
-identifier = (letter | "_"), {letter | "_" | digit};
+ident = (letter | "_"), {letter | "_" | digit};
+string = '"', {letter | digit | " "}, '"';
 
-letter = "a"| "..." | "z" | "A" | "..." | "Z";
+letter = "a" | "..." | "z" | "A" | "..." | "Z";
 digit = "0" | "..." | "9";
